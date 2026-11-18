@@ -12,7 +12,7 @@
     "应付对账",
     "结算归档"
   ],
-  "rule": "双次称重先配对，再按品类扣杂；更正只能替代指定版本，禁止重复支付",
+  "rule": "双次称重先配对，再按品类扣杂；更正只能替代指定版本，禁止重复支付；整户按累计净重定档返利，只结算差额",
   "lane": "L1",
   "bg": "深海墨蓝",
   "hue": "青188°",
@@ -20,7 +20,7 @@
   "density": "密",
   "mark": "时间戳日志与称重轨迹",
   "port": 18240,
-  "batch": "batch-20261117",
+  "batch": "batch-20261118",
   "prompt": "数据工程 - 水产拍卖称重扣杂与结算更正，中型项目",
   "keys": [
     "intake",
@@ -34,6 +34,7 @@
   "labels": {
     "id": "记录号",
     "ticket": "票号",
+    "buyer": "买家",
     "version": "版本",
     "fish": "品类",
     "gross_kg": "毛重 kg",
@@ -63,6 +64,17 @@
     "repeated_header": "重复表头",
     "row_balanced": "行守恒",
     "money_balanced": "金额守恒",
-    "blocked": "阻断项"
+    "blocked": "阻断项",
+    "tickets": "票数",
+    "per_kg": "返利率 CNY/kg",
+    "tier": "返利档位",
+    "rebate": "应返 CNY",
+    "granted": "已返 CNY",
+    "delta": "本次差额 CNY",
+    "payable": "整户应付 CNY",
+    "trigger": "触发更正",
+    "balanced": "对平",
+    "kept": "保留版",
+    "expected": "预期替代"
   }
 }

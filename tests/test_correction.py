@@ -7,8 +7,11 @@ def test_only_delta_paid_real(sample):
 def test_not_double_paid_real(sample):
     assert sample['balance']['paid']=='1168.50'
 def test_stale_branch(clean):
-    # TRAP-26
-    rows=[dict(r) for r in clean['settlements'][:2]];rows.append(dict(rows[-1],version=3,replaces='1'));final,bad,_=select_versions(rows);assert not final;assert bad[0]['code']=='STALE_CORRECTION'
+    # TRAP-26 切换失败保留旧版：断裂更正不生效，旧版继续结算
+    rows=[dict(r) for r in clean['settlements'][:2]];rows.append(dict(rows[-1],version=3,replaces='1'))
+    final,bad,_=select_versions(rows)
+    assert final[0]['version']==2 and final[0]['code']=='KEPT_PREVIOUS'
+    assert bad[0]['code']=='STALE_CORRECTION' and bad[0]['kept']==2
 def test_missing_base(clean):
     final,bad,_=select_versions(clean['settlements'][1:2]);assert not final;assert bad[0]['code']=='MISSING_BASE'
 def test_reverse_versions(clean):

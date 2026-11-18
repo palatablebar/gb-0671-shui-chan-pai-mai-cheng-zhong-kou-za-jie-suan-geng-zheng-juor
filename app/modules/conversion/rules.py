@@ -12,7 +12,8 @@ def normalize(row):
     if weight<0 or price<0 or paid<0 or not 0<=rate<1 or version<1 or version%1:
         raise BusinessError('INVALID_RANGE','重量、单价、扣杂率或版本越界')
     out.update(weight_kg=str(weight),price=str(price),rate=str(rate),paid=str(paid),version=int(version))
-    if not row['ticket'].strip() or not row['fish'].strip(): raise BusinessError('UNKNOWN_REFERENCE','票号或品类缺失')
+    if not row['ticket'].strip() or not row['fish'].strip() or not row['buyer'].strip(): raise BusinessError('UNKNOWN_REFERENCE','票号、买家或品类缺失')
+    out['buyer']=row['buyer'].strip()
     return out
 
 def apply(state):

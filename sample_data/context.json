@@ -10,5 +10,12 @@
   ],
   "market": "东港水产",
   "currency": "CNY",
-  "weight_unit": "kg"
+  "weight_unit": "kg",
+  "rebate": {
+    "tiers": [
+      {"min_kg": "0", "per_kg": "0"},
+      {"min_kg": "1500", "per_kg": "0.20"},
+      {"min_kg": "2025", "per_kg": "0.35"}
+    ]
+  }
 }

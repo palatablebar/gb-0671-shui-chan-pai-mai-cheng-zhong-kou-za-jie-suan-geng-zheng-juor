@@ -11,12 +11,12 @@ def pair(rows):
         if len(items)!=2 or set(kinds)!={'gross','tare'}:
             bad.extend((r,'PAIR_MISSING','毛皮称重缺失或重复') for r in items);continue
         gross,tare=kinds['gross'],kinds['tare']
-        if any(gross[k]!=tare[k] for k in ('fish','price','rate','replaces')):
-            bad.extend((r,'PAIR_MISMATCH','毛皮品类或价格定义不一致') for r in items);continue
+        if any(gross[k]!=tare[k] for k in ('fish','price','rate','replaces','buyer')):
+            bad.extend((r,'PAIR_MISMATCH','毛皮品类、买家或价格定义不一致') for r in items);continue
         net=Decimal(gross['weight_kg'])-Decimal(tare['weight_kg'])
         if net<0:
             bad.extend((r,'NEGATIVE_NET','毛重小于皮重') for r in items);continue
-        pairs.append({'ticket':ticket,'version':version,'fish':gross['fish'],'gross_kg':gross['weight_kg'],
+        pairs.append({'ticket':ticket,'buyer':gross['buyer'],'version':version,'fish':gross['fish'],'gross_kg':gross['weight_kg'],
             'tare_kg':tare['weight_kg'],'net_kg':str(net),'price':gross['price'],'rate':gross['rate'],
             'replaces':gross['replaces'],'paid':gross['paid'],'lines':[gross['_line'],tare['_line']]})
     return pairs,bad
